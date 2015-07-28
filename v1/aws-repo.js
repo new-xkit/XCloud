@@ -93,6 +93,27 @@ Repository.prototype = {
             callback(null, true);
             return;
         });
+    },
+
+    fetchPreferences: function(userid, callback){
+        params =    {   "TableName": "xcloud_preferences", 
+                        "Key": {"userid": {"S": userid}}
+                    };
+
+        this.db.getItem(params, function(err, data){
+            if(err !== null){
+                console.log(err);
+                callback(err, {});
+                return;
+            } else if(Object.keys(data).length === 0){
+                callback({"error": true, "message": "No preferences found for that user."}, {});
+                return;
+            }
+
+            var preferences = {"userid": userid, "data": data.Item.data.S};
+            callback(null, preferences);
+            return;
+        });
     }
 };
 

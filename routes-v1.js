@@ -35,12 +35,19 @@ module.exports = function(app, services){
 
     
     app.get('/xcloud/fetch', function(req, res){
-        res.send('{}');
+        username = req.query.username;
+        password = req.query.password;
+        
+        services.fetchPreferences(username, password, function(err, message){
+            if(err !== null){
+                res.sendStatus(500);
+                return;
+            }
+            res.send(message);
+        });
     });
 
     app.post('/upload', function(req, res){
-        console.log("post /upload");
-
         username = req.body.username;
         password = req.body.password;
         data = req.body.data;
