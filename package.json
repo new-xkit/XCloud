@@ -1,0 +1,19 @@
+{
+  "name": "xcloud",
+  "version": "1.0.0",
+  "description": "XCloud for new xkit extension",
+  "main": "main.js",
+  "dependencies": {
+    "aws-sdk": "^2.1.40",
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "bcryptjs": "2.2.0",
+    "node-uuid": "1.4.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
