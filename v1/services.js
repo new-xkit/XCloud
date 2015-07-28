@@ -45,6 +45,39 @@ Services.prototype = {
                 }
             });
         });
+    },
+    
+    loginUser: function(username, password, callback){
+        var _this = this;
+        if(username === undefined || password === undefined){
+            callback({"errors": "true", "error_code": "102", "message": "No username or password given."});
+            return;
+        }
+        
+        username = username.toLowerCase();
+        //Users alphanumeric check
+        if(/^[a-z0-9]+$/i.test(username) === false){
+            callback({"errors": "true", "error_code": "102"});
+            return;
+        }
+        
+        this.repo.getUser(username, password, function(err, user){
+            if(err !== null){
+                callback({"errors": "true", "error_code":"100"});
+                return;
+            }
+
+            var isValid = Object.keys(user).length !== 0;
+
+            if(isValid){
+                callback({"errors": "false" });
+                return;
+            }
+            else{
+                callback({"errors": "true", "error_code": "400"});
+                return;
+            }
+        });
     }
 }
 

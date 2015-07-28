@@ -46,6 +46,33 @@ Repository.prototype = {
             callback(null, true);
             return;
         });
+    },
+
+    getUser: function(username, unsecure_password, callback){
+        var _this = this;
+        var params = {"Key": {"username": {"S": username}}, "TableName": "xcloud_users"};
+        this.db.getItem(params, function(err, data){
+            if(err !== null){
+                console.log(err);
+                callback(err, {});
+                return;
+            } else if(Object.keys(data).length === 0) {
+                callback(null, {});
+                return;
+            } else {
+                console.log(data);
+                console.log(unsecure_password + " | " + data.Item.password.S);
+                var isValid = _this.bcrypt.compareSync(unsecure_password, data.Item.password.S);
+                if(isValid){
+                    var user = {"username": username, "userid": data.Item.userid.S};
+                    callback(null, user);
+                    return;
+                }
+            }
+
+            callback(null, {});
+            return;
+        });
     }
 };
 
