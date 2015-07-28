@@ -78,6 +78,44 @@ Services.prototype = {
                 return;
             }
         });
+    },
+
+    storePreferences: function(username, password, data, callback){
+        var _this = this;
+        if(username === undefined || password === undefined){
+            callback(null, {"errors": "true", "error_code": "102", "message": "No username or password given."});
+            return;
+        }
+        
+        username = username.toLowerCase();
+        //Users alphanumeric check
+        if(/^[a-z0-9]+$/i.test(username) === false){
+            callback(null, {"errors": "true", "error_code": "102"});
+            return;
+        }
+
+        var user = this.repo.getUser(username, password, function(err, user){
+           if(err !== null){
+                callback(err, null);
+                return;
+            }
+
+            if(Object.keys(user).length === 0 || user.userid === undefined || user.userid.length === 0){
+                callback(null, {"errors": "true", "error_code": "400"});
+                return;
+            }
+            else{
+                _this.repo.storePreferences(user.userid, data, function(error, success){
+                    if(err !== null){
+                        console.log(err);
+                        calback(error, {"errors": "true"});
+                        return;
+                    }
+                    callback(null, {"errors": "false"});
+                    return;
+                });
+            }
+        });
     }
 }
 

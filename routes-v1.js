@@ -40,10 +40,17 @@ module.exports = function(app, services){
 
     app.post('/upload', function(req, res){
         console.log("post /upload");
+
+        username = req.body.username;
+        password = req.body.password;
         data = req.body.data;
-        data = data.substring(3, data.length - 3);
-        console.log(new Buffer(data, 'base64').toString('ascii'));
-        //console.log(req.body);
-        res.sendStatus(201);
+
+        services.storePreferences(username, password, data, function(err, message){
+            if(err !== null){
+                res.sendStatus(500);
+                return;
+            }
+            res.send(message);
+        });
     });
 }

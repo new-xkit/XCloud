@@ -73,10 +73,28 @@ Repository.prototype = {
             callback(null, {});
             return;
         });
+    },
+
+    storePreferences: function(userid, data, callback){
+        params =    {"TableName": "xcloud_preferences", 
+                        "Item": {
+                            "userid": {"S": userid},
+                            "data": {"S": data}
+                        }
+                    }
+
+        this.db.putItem(params, function(err, data){
+            if(err !== null){
+                console.log(err);
+                callback(err, false);
+                return;    
+            }
+            
+            callback(null, true);
+            return;
+        });
     }
 };
-
-
 
 module.exports = function(aws, bcrypt, uuid){
     return new Repository(aws, bcrypt, uuid);
