@@ -1,5 +1,6 @@
 function Repository(aws, bcrypt, uuid){
     this.db = new aws.DynamoDB();
+    this.s3 = new aws.S3();
     this.bcrypt = bcrypt;
     this.uuid = uuid;
 }
@@ -76,14 +77,12 @@ Repository.prototype = {
     },
 
     storePreferences: function(userid, data, callback){
-        params =    {"TableName": "xcloud_preferences", 
-                        "Item": {
-                            "userid": {"S": userid},
-                            "data": {"S": data}
-                        }
-                    }
+        params =    {   "Bucket": "xcloud.preferences", 
+                        "Key": userid,
+                        "Body": data };
 
-        this.db.putItem(params, function(err, data){
+        
+        this.s3.upload(params, {}, function(err, data){
             if(err !== null){
                 console.log(err);
                 callback(err, false);
@@ -91,26 +90,27 @@ Repository.prototype = {
             }
             
             callback(null, true);
-            return;
+            return; 
         });
     },
 
     fetchPreferences: function(userid, callback){
-        params =    {   "TableName": "xcloud_preferences", 
-                        "Key": {"userid": {"S": userid}}
+        params =    {   "Bucket": "xcloud.preferences", 
+                        "Key": userid
                     };
 
-        this.db.getItem(params, function(err, data){
+        this.s3.getObject(params, function(err, data){
             if(err !== null){
                 console.log(err);
                 callback(err, {});
                 return;
-            } else if(Object.keys(data).length === 0){
-                callback({"error": true, "message": "No preferences found for that user."}, {});
+            } else if(data.length === 0){
+                callback({"errors": true, "message": "No preferences found for that user."}, {});
                 return;
             }
 
-            var preferences = {"userid": userid, "data": data.Item.data.S};
+            var preferences = {"errors": "false", "data": data.Body.toString()};
+            console.log(preferences);
             callback(null, preferences);
             return;
         });

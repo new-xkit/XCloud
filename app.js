@@ -37,8 +37,7 @@ app.post('*', function(req, res){
 });
 
 var options = {
-    cert: fs.readFileSync('/etc/ssl/apache2/star_codeandthings/STAR_codeandthings_com.crt'),
-    key: fs.readFileSync('/etc/ssl/apache2/star_codeandthings/codeandthings.com.key')
+    //Add SSL Info
 }
 
 console.log("Starting server :3082");
