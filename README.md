@@ -1,9 +1,13 @@
 # XCloud
 XCloud for the new xkit extension.
 
-## Meta data
+### Meta data
 The server also has 2 calls for checking if the server is running and a call for checking version numbers.
 Currently these are hard coded but we could redirect to a file stored on github for convenience.
+
+### Storing passwords
+XCloud extension is currently passing md5 passwords to the server.  
+Once received a bcrypt hash is computed and stored.
 
 ## Version 1
 Mimick of the old XCloud server.
@@ -29,6 +33,4 @@ Upon success XKit caches the username and password.
 ##Version 2
 Enhancement to XCloud.
 
-### Storing passwords
-XCloud extension is currently passing md5 passwords to the server.  
-Once received a bcrypt hash is computed and stored.
+
