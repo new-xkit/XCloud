@@ -7,6 +7,7 @@ var AWS = require('aws-sdk');
 var bcrypt = require('bcryptjs');
 var uuid = require('node-uuid');
 
+var secureConfig = require('./secure_config.js');
 
 //Setup Aws
 AWS.config.region = 'us-west-2';
@@ -38,6 +39,9 @@ app.post('*', function(req, res){
 
 var options = {
     //Add SSL Info
+    cert: fs.readFileSync(secureConfig.ssl_crt),
+    key: fs.readFileSync(secureConfig.ssl_key)
+    
 }
 
 console.log("Starting server :3082");
