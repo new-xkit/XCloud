@@ -61,8 +61,6 @@ Repository.prototype = {
                 callback(null, {});
                 return;
             } else {
-                console.log(data);
-                console.log(unsecure_password + " | " + data.Item.password.S);
                 var isValid = _this.bcrypt.compareSync(unsecure_password, data.Item.password.S);
                 if(isValid){
                     var user = {"username": username, "userid": data.Item.userid.S};
@@ -110,7 +108,6 @@ Repository.prototype = {
             }
 
             var preferences = {"errors": "false", "data": data.Body.toString()};
-            console.log(preferences);
             callback(null, preferences);
             return;
         });
