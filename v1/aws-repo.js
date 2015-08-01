@@ -13,6 +13,7 @@ Repository.prototype = {
         var params = {"Key": {"username": {"S": username}}, "TableName": "xcloud_users"};
         this.db.getItem(params, function(err, data){
             if(err !== null){
+		console.log(err);
                 callback(err, true);
                 return;
             }

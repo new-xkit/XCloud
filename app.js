@@ -13,8 +13,10 @@ var secureConfig = require('./secure_config.js');
 AWS.config.region = 'us-west-2';
 
 //Setup expressjs parsers
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({extended: true, limit: '5mb'}));
+
 
 app.use('/dist', express.static('dist'));
 app.use('/dist/pages', express.static('dist/pages'));
@@ -44,5 +46,5 @@ var options = {
     
 }
 
-console.log("Starting server :3082");
-https.createServer(options, app).listen(3082);
+console.log("Starting server :443");
+https.createServer(options, app).listen(443);
