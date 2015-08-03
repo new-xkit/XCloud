@@ -56,10 +56,10 @@ Repository.prototype = {
         this.db.getItem(params, function(err, data){
             if(err !== null){
                 console.log(err);
-                callback(err, {});
+                callback(err, null);
                 return;
             } else if(Object.keys(data).length === 0) {
-                callback(null, {});
+                callback(null, null);
                 return;
             } else {
                 var isValid = _this.bcrypt.compareSync(unsecure_password, data.Item.password.S);
@@ -70,7 +70,7 @@ Repository.prototype = {
                 }
             }
 
-            callback(null, {});
+            callback(null, null);
             return;
         });
     },
@@ -101,10 +101,10 @@ Repository.prototype = {
         this.s3.getObject(params, function(err, data){
             if(err !== null){
                 console.log(err);
-                callback(err, {});
+                callback(err, null);
                 return;
             } else if(data.length === 0){
-                callback({"errors": true, "message": "No preferences found for that user."}, {});
+                callback({"errors": true, "message": "No preferences found for that user."}, null);
                 return;
             }
 

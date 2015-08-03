@@ -7,40 +7,26 @@ Services.prototype = {
 
     registerUser: function(username, password, callback){
         var _this = this;
-        if(username === undefined || password === undefined){
-            callback({"errors": "true", "error_code": "102", "message": "No username or password given."});
-            return;
-        }
-
-        
-        username = username.toLowerCase();
-        //Users alphanumeric check
-        if(/^[a-z0-9]+$/i.test(username) === false){
-            callback({"errors": "true", "error_code": "102"});
+        if(isValidUsernamePassword(username, password) === false){
+            callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."}, false);
             return;
         }
         
-        //Make sure password is there.
-        if(password.length === 0){
-            callback({"errors": "true", "error_code": "202"});
-            return;
-        }
-
         //Check if there's already a user in the repository.
         _this.repo.containsUser(username, function(err, hasUser){
             if(err !== null || hasUser === true){
-                callback({"errors": "true", "error_code": "100"});
+                callback({"errors": "true", "error_code": "100"}, false);
                 return;
             }
 
-            
+            //User is not in the repository, let's create ze.
             _this.repo.createUser(username, password, function(err, success){
-                if(err === null){
-                    callback({"errors": "false"});
+                if(err !== null || success === false){
+                    callback({"errors":"true", "message": "Repository unable to create user."}, false);
                     return;
                 }
                 else{
-                    callback({"errors":"true", "message": "Repository unable to create user."});
+                    callback(null, true);
                     return;
                 }
             });
@@ -49,114 +35,90 @@ Services.prototype = {
     
     loginUser: function(username, password, callback){
         var _this = this;
-        if(username === undefined || password === undefined){
-            callback({"errors": "true", "error_code": "102", "message": "No username or password given."});
+        
+        if(isValidUsernamePassword(username, password) === false){
+            callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."});
             return;
         }
-        
-        username = username.toLowerCase();
-        //Users alphanumeric check
-        if(/^[a-z0-9]+$/i.test(username) === false){
-            callback({"errors": "true", "error_code": "102"});
-            return;
-        }
-        
         this.repo.getUser(username, password, function(err, user){
-            if(err !== null){
+            if(err !== null || user === null){
                 callback({"errors": "true", "error_code":"100"});
                 return;
             }
 
-            var isValid = Object.keys(user).length !== 0;
-
-            if(isValid){
-                callback({"errors": "false" });
-                return;
-            }
-            else{
-                callback({"errors": "true", "error_code": "400"});
-                return;
-            }
+            callback({"errors": "false" });
+            return;
         });
     },
 
     storePreferences: function(username, password, data, callback){
           var _this = this;
-        if(username === undefined || password === undefined){
-            callback(null, {"errors": "true", "error_code": "102", "message": "No username or password given."});
-            return;
-        }
-        
-        username = username.toLowerCase();
-        //Users alphanumeric check
-        if(/^[a-z0-9]+$/i.test(username) === false){
-            callback(null, {"errors": "true", "error_code": "102"});
+
+        if(isValidUsernamePassword(username, password) === false){
+            callback({"errors": "true", "error_code": 102, "message": "Username or password invalid."});
             return;
         }
 
         var user = this.repo.getUser(username, password, function(err, user){
-           if(err !== null){
-                callback(err, null);
+           if(err !== null || user === null){
+                callback({"errors": "true", "error_code": "400"}, false);
                 return;
             }
-
-            if(Object.keys(user).length === 0 || user.userid === undefined || user.userid.length === 0){
-                callback(null, {"errors": "true", "error_code": "400"});
-                return;
-            }
-            else{
-                _this.repo.storePreferences(user.userid, data, function(error, success){
-                    if(err !== null){
-                        console.log(err);
-                        calback(error, {"errors": "true"});
-                        return;
-                    }
-                    callback(null, {"errors": "false"});
+            _this.repo.storePreferences(user.userid, data, function(error, success){
+                if(err !== null || success === false){
+                    calback({"errors": "true"}, false);
                     return;
-                });
-            }
+                }
+                callback(null, true);
+                return;
+            });
         });
    },
 
    fetchPreferences: function(username, password, callback){
-        var _this = this;
-        if(username === undefined || password === undefined){
-            callback(null, {"errors": "true", "error_code": "102", "message": "No username or password given."});
+        if(isValidUsernamePassword(username, password) === false){
+            callback({"errors": "true", "error_code": 102, "message": "Username or password invalid."});
             return;
+        }
+
+        var user = this.repo.getUser(username, password, function(err, user){
+           if(err !== null || user === null){
+                callback({"errors": "true", "error_code": "400"}, null);
+                return;
+            }
+
+            _this.repo.fetchPreferences(user.userid, function(error, preferences){
+                if(err !== null || preferences === null){
+                    console.log(err);
+                    calback({"errors": "true"}, null);
+                    return;
+                }
+                
+                callback(null, {"errors": "false", "data": preferences.data});
+                return;
+            });
+        });
+   },
+
+
+    isValidUsernamePassword: function(username, password){
+        if(username === undefined || password === undefined){
+            return false;
         }
         
         username = username.toLowerCase();
         //Users alphanumeric check
         if(/^[a-z0-9]+$/i.test(username) === false){
-            callback(null, {"errors": "true", "error_code": "102"});
-            return;
+            return false;
         }
 
-        var user = this.repo.getUser(username, password, function(err, user){
-           if(err !== null){
-                callback(err, null);
-                return;
-            }
+        //Password MD5 check.
+        if(/^[a-f0-9]{32}$/.test(password) === false){
+            return false;
+        }
 
-            if(Object.keys(user).length === 0 || user.userid === undefined || user.userid.length === 0){
-                callback(null, {"errors": "true", "error_code": "400"});
-                return;
-            }
-            else{
-                _this.repo.fetchPreferences(user.userid, function(error, preferences){
-                    if(err !== null){
-                        console.log(err);
-                        calback(error, {"errors": "true"});
-                        return;
-                    }
-                    
-                    callback(null, {"errors": "false", "data": preferences.data});
-                    return;
-                });
-            }
-        });
-   },
-
+        return true;
+    }
       
     
 }

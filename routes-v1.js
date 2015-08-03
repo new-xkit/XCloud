@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(app, services){
 
 
@@ -19,8 +21,12 @@ module.exports = function(app, services){
         var username = req.query.username;
         var password = req.query.password;
         
-        services.registerUser(username, password, function(ret){
-            res.send(ret);    
+        services.registerUser(username, password, function(err, success){
+            if(err !== null){
+                res.send(err);
+                return;
+            }
+            res.send({"errors": "false"});    
         });
     });
 
@@ -28,8 +34,11 @@ module.exports = function(app, services){
         var username = req.query.username;
         var password = req.query.password;
 
-        services.loginUser(username, password, function(ret){
-            res.send(ret);
+        services.loginUser(username, password, function(err, success){
+            if(err !== null){
+                res.send(err);
+            }
+            res.send({"errors": "false"});
         });
     });
 
@@ -38,12 +47,12 @@ module.exports = function(app, services){
         username = req.query.username;
         password = req.query.password;
         
-        services.fetchPreferences(username, password, function(err, message){
+        services.fetchPreferences(username, password, function(err, data){
             if(err !== null){
                 res.sendStatus(500);
                 return;
             }
-            res.send(message);
+            res.send(data);
         });
     });
 

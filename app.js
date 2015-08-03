@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express');
 var app = express();
 var https = require('https');
@@ -8,6 +10,11 @@ var bcrypt = require('bcryptjs');
 var uuid = require('node-uuid');
 
 var secureConfig = require('./secure_config.js');
+
+var port = 443;
+if(process.argv[2] !== undefined){
+    port = process.argv[2];
+}
 
 //Setup Aws
 AWS.config.region = 'us-west-2';
@@ -46,5 +53,5 @@ var options = {
     
 }
 
-console.log("Starting server :443");
-https.createServer(options, app).listen(443);
+console.log("Starting server :" + port);
+https.createServer(options, app).listen(port);
