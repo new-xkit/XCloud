@@ -47,11 +47,19 @@ app.post('*', function(req, res){
 });
 
 var options = {
-    //Add SSL Info
-    cert: fs.readFileSync(secureConfig.ssl_crt),
-    key: fs.readFileSync(secureConfig.ssl_key)
-    
 }
 
-console.log("Starting server :" + port);
-https.createServer(options, app).listen(port);
+if(secureConfig.use_ssl){
+    //Add SSL Info
+    options.cert = fs.readFileSync(secureConfig.ssl_crt);
+    options.key = fs.readFileSync(secureConfig.ssl_key) ;  
+}
+
+if(secureConfig.use_ssl){
+    console.log("Starting secure server :" + port);
+    https.createServer(options, app).listen(port);
+} else {
+    console.log("Starting server :" + port);
+    app.listen(port);
+}
+

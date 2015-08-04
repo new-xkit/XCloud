@@ -7,7 +7,7 @@ Services.prototype = {
 
     registerUser: function(username, password, callback){
         var _this = this;
-        if(isValidUsernamePassword(username, password) === false){
+        if(_this.isValidUsernamePassword(username, password) === false){
             callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."}, false);
             return;
         }
@@ -36,17 +36,17 @@ Services.prototype = {
     loginUser: function(username, password, callback){
         var _this = this;
         
-        if(isValidUsernamePassword(username, password) === false){
-            callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."});
+        if(_this.isValidUsernamePassword(username, password) === false){
+            callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."}, false);
             return;
         }
         this.repo.getUser(username, password, function(err, user){
             if(err !== null || user === null){
-                callback({"errors": "true", "error_code":"100"});
+                callback({"errors": "true", "error_code":"602"}, false);
                 return;
             }
 
-            callback({"errors": "false" });
+            callback(null, true);
             return;
         });
     },
@@ -54,14 +54,19 @@ Services.prototype = {
     storePreferences: function(username, password, data, callback){
           var _this = this;
 
-        if(isValidUsernamePassword(username, password) === false){
-            callback({"errors": "true", "error_code": 102, "message": "Username or password invalid."});
+        if(_this.isValidUsernamePassword(username, password) === false){
+            callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."}, false);
+            return;
+        }
+
+        if(data === null){
+            callback({"errors": "true"}, false)
             return;
         }
 
         var user = this.repo.getUser(username, password, function(err, user){
            if(err !== null || user === null){
-                callback({"errors": "true", "error_code": "400"}, false);
+                callback({"errors": "true", "error_code": "602"}, false);
                 return;
             }
             _this.repo.storePreferences(user.userid, data, function(error, success){
@@ -76,14 +81,15 @@ Services.prototype = {
    },
 
    fetchPreferences: function(username, password, callback){
-        if(isValidUsernamePassword(username, password) === false){
-            callback({"errors": "true", "error_code": 102, "message": "Username or password invalid."});
+        var _this = this;
+        if(_this.isValidUsernamePassword(username, password) === false){
+            callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."});
             return;
         }
 
         var user = this.repo.getUser(username, password, function(err, user){
            if(err !== null || user === null){
-                callback({"errors": "true", "error_code": "400"}, null);
+                callback({"errors": "true", "error_code": "602"}, null);
                 return;
             }
 
@@ -102,13 +108,19 @@ Services.prototype = {
 
 
     isValidUsernamePassword: function(username, password){
-        if(username === undefined || password === undefined){
+        if(username === null || password === null){
+            return false;
+        }
+
+        //Limit the user length.
+        if(username.length >= 100){
             return false;
         }
         
         username = username.toLowerCase();
         //Users alphanumeric check
-        if(/^[a-z0-9]+$/i.test(username) === false){
+        //Also allows hyphens so we can test with uuid.
+        if(/^[a-z0-9\-]+$/i.test(username) === false){
             return false;
         }
 
