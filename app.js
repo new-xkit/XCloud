@@ -30,7 +30,7 @@ app.use('/dist/pages', express.static('dist/pages'));
 //Load routes for v1 xcloud
 var repo = require('./v1/aws-repo.js')(AWS, bcrypt, uuid);
 var services = require('./v1/services.js')(repo);
-require('./routes-v1.js')(app, services);
+require('./v1/routes-v1.js')(app, services);
 
 //All extenions.
 
