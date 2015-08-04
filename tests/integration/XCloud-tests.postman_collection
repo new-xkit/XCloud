@@ -14,7 +14,6 @@
 		"e692004d-6e85-db3b-73c1-bf3e407cd1e5",
 		"74cff7a4-609a-e24d-65a9-22e0583841a8",
 		"521bad3d-34cc-a751-1954-082044b8d94c",
-		"5709ef1d-c467-d00a-5654-495491d8cefc",
 		"cd32de57-8bd5-90b1-b886-15622ee06a22",
 		"0a879859-cf23-bcf3-db66-5dcf254e7553",
 		"93ec58fe-d9d6-366f-f9a0-11b9782b695a",
@@ -51,21 +50,39 @@
 		{
 			"id": "0a879859-cf23-bcf3-db66-5dcf254e7553",
 			"headers": "Content-Type: application/json\n",
-			"url": "{{url}}/upload?username=04ceafe434034d96a6ffc14ad6062a1b!&password=6066655dc742d6b0605378c8262502b0",
+			"url": "{{url}}/upload",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
+			"data": [
+				{
+					"key": "username",
+					"value": "04ceafe434034d96a6ffc14ad6062a1-!b22",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "6066655dc742d6b0605378c8262502b0",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "data",
+					"value": "foobar",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
 			"version": 2,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\ntests[\"Errors\"] = data.errors === \"true\";\ntests[\"Error code\"] = data.error_code === \"102\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1438646776367,
+			"time": 1438652229538,
 			"name": "Upload Data - Invalid User",
 			"description": "Checks to see if the user is a valid user.\n\nReturns a json object {errors: \"false\"} if the user is valid.\n\nNote: The errors is a string not a boolean.",
-			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6",
-			"rawModeData": "{\"data\":\"foobar\"}"
+			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6"
 		},
 		{
 			"id": "12b45621-0d53-835c-9d32-5b9f03914783",
@@ -91,21 +108,39 @@
 		{
 			"id": "35802b7a-1924-b16e-582e-a894ffdaba0c",
 			"headers": "Content-Type: application/json\n",
-			"url": "{{url}}/upload?username=04ceafe434034d96a6ffc14ad6062a1b&password=6066655dc742d6b0605378c8262502b0",
+			"url": "{{url}}/upload",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
+			"data": [
+				{
+					"key": "username",
+					"value": "04ceafe434034d96a6ffc14ad6062a1b2",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "6066655dc742d6b0605378c8262502b0",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "data",
+					"value": "",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
 			"version": 2,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\ntests[\"Errors\"] = data.errors === \"true\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1438646866477,
+			"time": 1438652015260,
 			"name": "Upload Data - No Data",
 			"description": "Checks to see if the user is a valid user.\n\nReturns a json object {errors: \"false\"} if the user is valid.\n\nNote: The errors is a string not a boolean.",
-			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6",
-			"rawModeData": ""
+			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6"
 		},
 		{
 			"id": "521bad3d-34cc-a751-1954-082044b8d94c",
@@ -124,27 +159,6 @@
 			"name": "Authorize User - Invalid password",
 			"description": "Checks to see if the user is a valid user.\n\nReturns a json object {errors: \"false\"} if the user is valid.\n\nNote: The errors is a string not a boolean.",
 			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6"
-		},
-		{
-			"id": "5709ef1d-c467-d00a-5654-495491d8cefc",
-			"headers": "",
-			"url": "{{url}}/xcloud/fetch?username&password",
-			"preRequestScript": "",
-			"pathVariables": {},
-			"method": "GET",
-			"data": [],
-			"dataMode": "params",
-			"version": 2,
-			"tests": "",
-			"currentHelper": "normal",
-			"helperAttributes": "{}",
-			"time": 1438609037539,
-			"name": "Fetch XCloud Data",
-			"description": "Fetches the user's data from xcloud.\n\ntakes a username and password for authentication.\n\n\nReturns a json document {errors: \"false\", data: \"\"} upon success.\n\nData is a base64 encoded json document with XCS prepended and XCE appended.",
-			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6",
-			"rawModeData": null,
-			"descriptionFormat": "html",
-			"folder": null
 		},
 		{
 			"id": "57ce0fd3-96d2-3e96-11f2-f334bd47016a",
@@ -248,21 +262,39 @@
 		{
 			"id": "93ec58fe-d9d6-366f-f9a0-11b9782b695a",
 			"headers": "Content-Type: application/json\n",
-			"url": "{{url}}/upload?username=04ceafe434034d96a6ffc14ad6062a1b&password=6066655dc742d6b0605378c8262512b0",
+			"url": "{{url}}/upload",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
+			"data": [
+				{
+					"key": "username",
+					"value": "04ceafe434034d96a6ffc14ad6062a1b2",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "6066655dc742d6b0605378c8262502b1",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "data",
+					"value": "foobar",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
 			"version": 2,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\ntests[\"Errors\"] = data.errors === \"true\";\ntests[\"Error Code\"] = data.error_code === \"602\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1438646813424,
+			"time": 1438651958200,
 			"name": "Upload Data - Wrong password",
 			"description": "Checks to see if the user is a valid user.\n\nReturns a json object {errors: \"false\"} if the user is valid.\n\nNote: The errors is a string not a boolean.",
-			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6",
-			"rawModeData": "{\"data\":\"foobar\"}"
+			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6"
 		},
 		{
 			"id": "9f88db66-55b7-1afe-24b9-64eba9143a5b",
@@ -345,21 +377,39 @@
 		{
 			"id": "cd32de57-8bd5-90b1-b886-15622ee06a22",
 			"headers": "Content-Type: application/json\n",
-			"url": "{{url}}/upload?username=04ceafe434034d96a6ffc14ad6062a1b&password=6066655dc742d6b0605378c8262502b0",
+			"url": "{{url}}/upload",
 			"preRequestScript": "",
 			"pathVariables": {},
 			"method": "POST",
-			"data": [],
-			"dataMode": "raw",
+			"data": [
+				{
+					"key": "username",
+					"value": "04ceafe434034d96a6ffc14ad6062a1b",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "password",
+					"value": "6066655dc742d6b0605378c8262502b0",
+					"type": "text",
+					"enabled": true
+				},
+				{
+					"key": "data",
+					"value": "foobar",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
 			"version": 2,
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\n\nvar data = JSON.parse(responseBody);\ntests[\"Errors\"] = data.errors === \"false\";",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1438646701254,
+			"time": 1438652270572,
 			"name": "Upload Data",
 			"description": "Checks to see if the user is a valid user.\n\nReturns a json object {errors: \"false\"} if the user is valid.\n\nNote: The errors is a string not a boolean.",
-			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6",
-			"rawModeData": "{\"data\":\"foobar\"}"
+			"collectionId": "c7c8ad62-8312-6d6f-83c1-81090c1d45f6"
 		},
 		{
 			"id": "cd3de3fd-5d2c-4fa1-56d0-4348b0d278be",
