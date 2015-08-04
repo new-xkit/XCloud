@@ -59,7 +59,7 @@ Services.prototype = {
             return;
         }
 
-        if(data === null){
+        if(data === null || data.length === 0){
             callback({"errors": "true"}, false)
             return;
         }

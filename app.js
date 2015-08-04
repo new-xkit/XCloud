@@ -51,7 +51,7 @@ var options = {
 
 if(secureConfig.use_ssl){
     //Add SSL Info
-    options.cert = fs.readFileSync(secureConfig.ssl_crt);
+    options.cert = fs.readFileSync(secureConfig.ssl_cert);
     options.key = fs.readFileSync(secureConfig.ssl_key) ;  
 }
 

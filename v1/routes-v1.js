@@ -58,9 +58,9 @@ module.exports = function(app, services){
     });
 
     app.post('/upload', function(req, res){
-        var username = req.query.username === undefined ? null : req.query.username;
-        var password = req.query.password === undefined ? null : req.query.password;
-        var data = req.body === undefined || req.body.data === undefined ? null : req.body.data;
+        var username = req.body.username === undefined ? null : req.body.username;
+        var password = req.body.password === undefined ? null : req.body.password;
+        var data = req.body.data === undefined || req.body.data === undefined ? null : req.body.data;
 
         services.storePreferences(username, password, data, function(err, success){
             if(err !== null || success === false){
