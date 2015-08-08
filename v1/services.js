@@ -1,3 +1,5 @@
+"use strict";
+
 function Services(repo){
     this.repo = repo;
 }
@@ -66,7 +68,7 @@ Services.prototype = {
         username = username.toLowerCase();
 
         if(data === null || data.length === 0){
-            callback({"errors": "true"}, false)
+            callback({"errors": "true"}, false);
             return;
         }
 
@@ -77,7 +79,7 @@ Services.prototype = {
             }
             _this.repo.storePreferences(user.userid, data, function(error, success){
                 if(err !== null || success === false){
-                    calback({"errors": "true"}, false);
+                    callback({"errors": "true"}, false);
                     return;
                 }
                 callback(null, true);
@@ -104,7 +106,7 @@ Services.prototype = {
             _this.repo.fetchPreferences(user.userid, function(error, preferences){
                 if(err !== null || preferences === null){
                     console.log(err);
-                    calback({"errors": "true"}, null);
+                    callback({"errors": "true"}, null);
                     return;
                 }
                 
@@ -138,10 +140,8 @@ Services.prototype = {
 
         return true;
     }
-      
-    
-}
+};
 
 module.exports = function(repo){
     return new Services(repo);
-}
+};

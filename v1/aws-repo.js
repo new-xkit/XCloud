@@ -1,3 +1,5 @@
+"use strict";
+
 function Repository(aws, bcrypt, uuid){
     this.db = new aws.DynamoDB();
     this.s3 = new aws.S3();
@@ -112,4 +114,4 @@ Repository.prototype = {
 
 module.exports = function(aws, bcrypt, uuid){
     return new Repository(aws, bcrypt, uuid);
-}
+};

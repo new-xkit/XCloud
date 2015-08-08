@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = function(app, services, auth){
 
@@ -92,4 +92,4 @@ module.exports = function(app, services, auth){
             }
         });
     });
-}
+};

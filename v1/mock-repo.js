@@ -1,3 +1,5 @@
+"use strict";
+
 function Repository(aws, bcrypt, uuid){
     this.db = new aws.DynamoDB();
     this.s3 = new aws.S3();
@@ -32,7 +34,6 @@ Repository.prototype = {
         if(username === "6066655dc742d6b0605378c8262502b0"){
             var user = {"username": "6066655dc742d6b0605378c8262502b0", "userid": "10"};
             callback(null, user);
-            return;
         }
         else{
             callback(null, null);
@@ -45,11 +46,9 @@ Repository.prototype = {
 
     fetchPreferences: function(userid, callback){
             callback(null, "yay preferences");
-            return;
-        });
-    }
+        }
 };
 
 module.exports = function(aws, bcrypt, uuid){
     return new Repository(aws, bcrypt, uuid);
-}
+};
