@@ -8,6 +8,7 @@ var fs = require('fs');
 var AWS = require('aws-sdk');
 var bcrypt = require('bcryptjs');
 var uuid = require('node-uuid');
+var auth = require('basic-auth');
 
 var secureConfig = require('./secure_config.js');
 
@@ -30,7 +31,7 @@ app.use('/dist/pages', express.static('dist/pages'));
 //Load routes for v1 XCloud
 var repo = require('./v1/aws-repo.js')(AWS, bcrypt, uuid);
 var services = require('./v1/services.js')(repo);
-require('./v1/routes-v1.js')(app, services);
+require('./v1/routes-v1.js')(app, services, auth);
 
 //Catchall for reverse engineering.
 app.get('*', function(req, res){

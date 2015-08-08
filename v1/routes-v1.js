@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function(app, services){
+module.exports = function(app, services, auth){
 
 
     app.get('/seven/paperboy/index.php', function(req, res){
@@ -21,6 +21,7 @@ module.exports = function(app, services){
         var username = req.query.username === undefined ? null : req.query.username;
         var password = req.query.password === undefined ? null : req.query.password;
 
+
         services.registerUser(username, password, function(err, success){
             if(err !== null){
                 res.send(err);
@@ -31,8 +32,11 @@ module.exports = function(app, services){
     });
 
     app.get('/xcloud/auth', function(req, res){
-        var username = req.query.username === undefined ? null : req.query.username;
-        var password = req.query.password === undefined ? null : req.query.password;
+
+        var authorization = auth(req) === undefined ? {name: null, pass: null} : auth(req);
+
+        var username = authorization.name;
+        var password = authorization.pass;
 
         services.loginUser(username, password, function(err, success){
             if(err !== null || success === false){
@@ -45,8 +49,10 @@ module.exports = function(app, services){
 
     
     app.get('/xcloud/fetch', function(req, res){
-        var username = req.query.username === undefined ? null : req.query.username;
-        var password = req.query.password === undefined ? null : req.query.password;
+        var authorization = auth(req) === undefined ? {name: null, pass: null} : auth(req);
+
+        var username = authorization.name;
+        var password = authorization.pass;
         
         services.fetchPreferences(username, password, function(err, data){
             if(err !== null){
@@ -57,9 +63,25 @@ module.exports = function(app, services){
         });
     });
 
-    app.post('/upload', function(req, res){
+    app.post('/xcloud/register', function(req, res){
         var username = req.body.username === undefined ? null : req.body.username;
         var password = req.body.password === undefined ? null : req.body.password;
+
+        services.registerUser(username, password, function(err, success){
+            if(err !== null){
+                res.send(err);
+            } else {
+                res.send({"errors": "false"});
+            }
+        });
+    });
+
+    app.post('/upload', function(req, res){
+        var authorization = auth(req) === undefined ? {name: null, pass: null} : auth(req);
+
+        var username = authorization.name;
+        var password = authorization.pass;
+
         var data = req.body.data === undefined || req.body.data === undefined ? null : req.body.data;
 
         services.storePreferences(username, password, data, function(err, success){
