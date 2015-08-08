@@ -22,7 +22,7 @@ Mimick of the old XCloud server.
 
 ### Save Preferences
 1. XKit appends all of the extenion information to one json document
-2. Xkit encodes it uses base64.  After encoding ___ is prepended and ___ is appended 
+2. XKit encodes it uses base64.  After encoding ___ is prepended and ___ is appended 
 3. XKit uploads the encoded preferences with a username and password to the server..
 4. The server authenticates the call and then stores the base64 encoded string.
 
