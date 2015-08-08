@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var express = require('express');
 var app = express();
@@ -27,13 +27,10 @@ app.use(bodyParser.urlencoded({extended: true, limit: '5mb'}));
 
 app.use('/dist', express.static('dist'));
 app.use('/dist/pages', express.static('dist/pages'));
-//Load routes for v1 xcloud
+//Load routes for v1 XCloud
 var repo = require('./v1/aws-repo.js')(AWS, bcrypt, uuid);
 var services = require('./v1/services.js')(repo);
 require('./v1/routes-v1.js')(app, services);
-
-//All extenions.
-
 
 //Catchall for reverse engineering.
 app.get('*', function(req, res){
@@ -46,8 +43,7 @@ app.post('*', function(req, res){
     res.sendStatus(201);
 });
 
-var options = {
-}
+var options = {};
 
 if(secureConfig.use_ssl){
     //Add SSL Info

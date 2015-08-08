@@ -11,6 +11,8 @@ Services.prototype = {
             callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."}, false);
             return;
         }
+
+        username = username.toLowerCase();
         
         //Check if there's already a user in the repository.
         _this.repo.containsUser(username, function(err, hasUser){
@@ -23,11 +25,9 @@ Services.prototype = {
             _this.repo.createUser(username, password, function(err, success){
                 if(err !== null || success === false){
                     callback({"errors":"true", "message": "Repository unable to create user."}, false);
-                    return;
                 }
                 else{
                     callback(null, true);
-                    return;
                 }
             });
         });
@@ -40,6 +40,10 @@ Services.prototype = {
             callback({"errors": "true", "error_code": "102", "message": "Username or password invalid."}, false);
             return;
         }
+
+
+        username = username.toLowerCase();
+
         this.repo.getUser(username, password, function(err, user){
             if(err !== null || user === null){
                 callback({"errors": "true", "error_code":"602"}, false);
@@ -47,7 +51,6 @@ Services.prototype = {
             }
 
             callback(null, true);
-            return;
         });
     },
 
@@ -59,12 +62,15 @@ Services.prototype = {
             return;
         }
 
+
+        username = username.toLowerCase();
+
         if(data === null || data.length === 0){
             callback({"errors": "true"}, false)
             return;
         }
 
-        var user = this.repo.getUser(username, password, function(err, user){
+        this.repo.getUser(username, password, function(err, user){
            if(err !== null || user === null){
                 callback({"errors": "true", "error_code": "602"}, false);
                 return;
@@ -75,7 +81,6 @@ Services.prototype = {
                     return;
                 }
                 callback(null, true);
-                return;
             });
         });
    },
@@ -87,7 +92,10 @@ Services.prototype = {
             return;
         }
 
-        var user = this.repo.getUser(username, password, function(err, user){
+
+        username = username.toLowerCase();
+
+        this.repo.getUser(username, password, function(err, user){
            if(err !== null || user === null){
                 callback({"errors": "true", "error_code": "602"}, null);
                 return;
@@ -101,7 +109,6 @@ Services.prototype = {
                 }
                 
                 callback(null, {"errors": "false", "data": preferences.data});
-                return;
             });
         });
    },

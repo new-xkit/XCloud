@@ -23,7 +23,6 @@ Repository.prototype = {
             }
 
             callback(null, false);
-            return;
         });
     },
 
@@ -46,7 +45,6 @@ Repository.prototype = {
             }
             
             callback(null, true);
-            return;
         });
     },
 
@@ -71,12 +69,11 @@ Repository.prototype = {
             }
 
             callback(null, null);
-            return;
         });
     },
 
     storePreferences: function(userid, data, callback){
-        params =    {   "Bucket": "xcloud.preferences", 
+        var params =    {   "Bucket": "xcloud.preferences",
                         "Key": userid,
                         "Body": data };
 
@@ -89,12 +86,11 @@ Repository.prototype = {
             }
             
             callback(null, true);
-            return; 
         });
     },
 
     fetchPreferences: function(userid, callback){
-        params =    {   "Bucket": "xcloud.preferences", 
+        var params =    {   "Bucket": "xcloud.preferences",
                         "Key": userid
                     };
 
@@ -110,7 +106,6 @@ Repository.prototype = {
 
             var preferences = {"errors": "false", "data": data.Body.toString()};
             callback(null, preferences);
-            return;
         });
     }
 };

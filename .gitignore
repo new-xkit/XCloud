@@ -2,6 +2,7 @@
 logs
 *.log
 
+#Config file for ssl key location and such.
 secure_config.js
 
 # Runtime data
