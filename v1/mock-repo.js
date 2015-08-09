@@ -8,9 +8,9 @@ function Repository(aws, bcrypt, uuid){
 }
 
 Repository.prototype = {
-    //Callback
-    //  err: error if there was an error
-    //  hasUser: true if a user exists, false otherwise.
+    containsUserSuccessCount: 0,
+    containsUserFailCount: 0,
+
     containsUser: function(username, callback){
         if(username === "04ceafe434034d96a6ffc14ad6062a1b"){
             callback(null, true);
