@@ -9,10 +9,26 @@ angular.module('xcloud.status', ['ngRoute'])
         });
     }])
 
-    .controller('StatusController', ['$scope', '$cookies', '$window', function($scope, $cookies, $window) {
-        if($cookies.get("auth") == false){
+    .controller('StatusController', function($scope, $location) {
+        if(localStorage.getItem("auth") === null){
             $location.path('/login').replace();
+            return;
         }
 
 
-    }]);
+
+        var auth = localStorage.getItem("auth");
+        console.log(auth);
+        $.ajax({
+            type: "GET",
+            url: "/xcloud/fetch",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader ("Authorization", auth);
+            },
+            success: function(data){
+                console.log(data);
+            }
+        });
+
+
+    });

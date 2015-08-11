@@ -9,12 +9,12 @@ angular.module('xcloud.home', ['ngRoute'])
       });
     }])
 
-    .controller('HomeController', ['$scope', '$cookies', '$location', function($scope, $cookies, $location) {
-        if($cookies.get("auth") == false){
+    .controller('HomeController', function($scope, $location) {
+        if(localStorage.getItem("auth") === null){
             $location.path('/login').replace();
         }
 
         $scope.go = function(path){
             $location.path(path).replace();
         }
-    }]);
+    });

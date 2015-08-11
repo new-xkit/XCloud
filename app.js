@@ -30,8 +30,8 @@ app.use("/", express.static('public'));
 
 
 //Load routes for v1 XCloud
-var repo = require('./v1/aws-repo.js')(AWS, bcrypt, uuid);
-//var repo = require('./v1/mock-repo.js')();
+//var repo = require('./v1/aws-repo.js')(AWS, bcrypt, uuid);
+var repo = require('./v1/mock-repo.js')();
 var services = require('./v1/services.js')(repo);
 require('./v1/routes-v1.js')(app, services, auth);
 

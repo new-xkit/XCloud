@@ -3,7 +3,7 @@
 // Declare app level module which depends on views, and components
 angular.module('xcloud', [
     'ngRoute',
-    'ngCookies',
+    'ngStorage',
     'xcloud.login',
     'xcloud.home',
     'xcloud.status'

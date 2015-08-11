@@ -9,8 +9,8 @@ angular.module('xcloud.login', ['ngRoute'])
         });
     }])
 
-    .controller('LoginController', ['$scope', '$cookies', '$window', function($scope, $cookies, $window) {
-        $cookies.put("auth", "");
+    .controller('LoginController', ['$scope', '$window', function($scope, $window) {
+        localStorage.removeItem("auth");
         $scope.user =  {username: "", password:"", password_confirm: ""};
 
         $scope.xc_code = "";
@@ -18,7 +18,7 @@ angular.module('xcloud.login', ['ngRoute'])
 
         $scope.login = function(){
             $scope.xc_code = "";
-            var auth = "Basic " +  btoa($scope.user.username + ":" + md5($scope.user.password));
+            var auth = "Basic " + btoa($scope.user.username + ":" + md5($scope.user.password));
 
             if(! $scope.validate(true)){
                 return;
@@ -33,8 +33,8 @@ angular.module('xcloud.login', ['ngRoute'])
                 success: function(data){
                     console.log(data);
                     if(data.errors == "false"){
-                        $cookies.put("auth", auth);
-                        $cookies.put("username", $scope.user.username);
+                        localStorage.setItem("auth", auth);
+                        localStorage.setItem("username", $scope.user.username);
                         $window.location.href = "/";
                     }
                     else {
@@ -53,7 +53,7 @@ angular.module('xcloud.login', ['ngRoute'])
                 return;
             }
 
-            var auth = "Basic " +  btoa($scope.user.username + ":" + md5($scope.user.password));
+            var auth = "Basic " + btoa($scope.user.username + ":" + md5($scope.user.password));
             $.ajax({
                 type: "POST",
                 url: "/xcloud/register",
@@ -61,8 +61,8 @@ angular.module('xcloud.login', ['ngRoute'])
                 success: function(data){
                     console.log(data);
                     if(data.errors == "false"){
-                        $cookies.put("auth", auth);
-                        $cookies.put("username", $scope.user.username);
+                        localStorage.setItem("auth", auth);
+                        localStorage.setItem("username", $scope.user.username);
                         $window.location.href = "/";
                     }
                     else {
