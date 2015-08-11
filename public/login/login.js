@@ -39,6 +39,7 @@ angular.module('xcloud.login', ['ngRoute'])
                     }
                     else {
                         $scope.xc_code = data.error_code;
+                        $scope.$apply();
                     }
                 }
             });
@@ -66,6 +67,7 @@ angular.module('xcloud.login', ['ngRoute'])
                     }
                     else {
                         $scope.xc_code = data.error_code;
+                        $scope.$apply();
                     }
                 }
             });
