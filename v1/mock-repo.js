@@ -1,54 +1,39 @@
 "use strict";
 
-function Repository(aws, bcrypt, uuid){
-    this.db = new aws.DynamoDB();
-    this.s3 = new aws.S3();
-    this.bcrypt = bcrypt;
-    this.uuid = uuid;
+function Repository(){
+
 }
 
 Repository.prototype = {
-    containsUserSuccessCount: 0,
-    containsUserFailCount: 0,
-
+    //Callback
+    //  err: error if there was an error
+    //  hasUser: true if a user exists, false otherwise.
     containsUser: function(username, callback){
-        if(username === "04ceafe434034d96a6ffc14ad6062a1b"){
-            callback(null, true);
-        }
-        else {
-            callback(null, false);
-        }
+        callback(null, true);
     },
 
     createUser: function(username, unsecure_password, callback){
-        if(username === "04ceafe434034d96a6ffc14ad6062a1b"){
-            callback(null, false);
-        }
-        else{
-            callback(null, true);
-        }
 
+        callback(null, true);
     },
 
     getUser: function(username, unsecure_password, callback){
-        if(username === "6066655dc742d6b0605378c8262502b0"){
-            var user = {"username": "6066655dc742d6b0605378c8262502b0", "userid": "10"};
-            callback(null, user);
-        }
-        else{
-            callback(null, null);
-        }
+        var user = {"username": username, "userid": "0"};
+        callback(null, user);
     },
 
     storePreferences: function(userid, data, callback){
+
         callback(null, true);
     },
 
     fetchPreferences: function(userid, callback){
-            callback(null, "yay preferences");
-        }
+        var preferences = {"errors": "false", "data": "Mock Data"};
+        callback(null, preferences);
+
+    }
 };
 
-module.exports = function(aws, bcrypt, uuid){
-    return new Repository(aws, bcrypt, uuid);
+module.exports = function(){
+    return new Repository();
 };

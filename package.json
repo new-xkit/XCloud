@@ -1,34 +1,50 @@
 {
-  "name": "xcloud",
-  "private": true,
-  "devDependencies": {
+  "name": "XCloud",
+  "version": "1.0.0",
+  "description": "XCloud for the new XKit extension.",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
     "grunt": "^0.4.5",
     "grunt-angular-templates": "^0.5.7",
-    "grunt-autoprefixer": "^2.0.0",
-    "grunt-concurrent": "^1.0.0",
+    "grunt-autoprefixer": "^2.2.0",
+    "grunt-concurrent": "^1.0.1",
     "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-compass": "^1.0.0",
-    "grunt-contrib-concat": "^0.5.0",
+    "grunt-contrib-compass": "^1.0.3",
+    "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-connect": "^0.9.0",
     "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-cssmin": "^0.12.0",
+    "grunt-contrib-cssmin": "^0.12.3",
     "grunt-contrib-htmlmin": "^0.4.0",
-    "grunt-contrib-imagemin": "^0.9.2",
-    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-imagemin": "^0.9.4",
+    "grunt-contrib-jshint": "^0.11.2",
     "grunt-contrib-uglify": "^0.7.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-filerev": "^2.1.2",
+    "grunt-filerev": "^2.3.1",
     "grunt-google-cdn": "^0.4.3",
-    "grunt-newer": "^1.1.0",
+    "grunt-newer": "^1.1.1",
     "grunt-ng-annotate": "^0.9.2",
-    "grunt-svgmin": "^2.0.0",
+    "grunt-svgmin": "^2.0.1",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
     "jit-grunt": "^0.9.1",
-    "jshint-stylish": "^1.0.0",
-    "time-grunt": "^1.0.0"
+    "jshint-stylish": "^1.0.2",
+    "time-grunt": "^1.2.1"
   },
-  "engines": {
-    "node": ">=0.10.0"
-  }
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChuckL/XCloud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChuckL/XCloud/issues"
+  },
+  "homepage": "https://github.com/ChuckL/XCloud"
 }
