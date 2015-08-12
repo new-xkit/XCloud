@@ -26,7 +26,22 @@ angular.module('xcloud.status', ['ngRoute'])
                 xhr.setRequestHeader ("Authorization", auth);
             },
             success: function(data){
-                console.log(data);
+                var xcloud_data = data.data;
+                xcloud_data = xcloud_data.substr(3, xcloud_data.length - 6);
+                var extension_data = base64_decode(xcloud_data);
+                var table_body = $('#extension-table-body');
+
+
+                extension_data = JSON.parse(extension_data);
+                $scope.extension_count = extension_data.settings.length;
+                $scope.extension_size = Math.round(xcloud_data.length / 1024);
+
+                $scope.$apply();
+
+                $.each(extension_data.settings, function(index, value){
+                    console.log(value);
+                    table_body.append("<tr><td>"+index+"</td><td>"+value.extension+"</td><td>"+value.preferences.length+" bytes</td></tr>");
+                });
             }
         });
 

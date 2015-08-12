@@ -10,7 +10,7 @@ angular.module('xcloud.login', ['ngRoute'])
     }])
 
     .controller('LoginController', ['$scope', '$window', function($scope, $window) {
-        localStorage.removeItem("auth");
+        //localStorage.removeItem("auth");
         $scope.user =  {username: "", password:"", password_confirm: ""};
 
         $scope.xc_code = "";
