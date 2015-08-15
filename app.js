@@ -66,6 +66,9 @@ if(secureConfig.use_ssl){
         fs.readFileSync(secureConfig.ssl_intermediate[0]),
         fs.readFileSync(secureConfig.ssl_intermediate[1])
     ];
+
+    options.secureProtocol = 'SSLv23_method';
+    options.secureOptions = 'constants.SSL_OP_NO_SSLv3 | constants.SSL_OP_NO_SSLv2';
 }
 
 if(secureConfig.use_ssl){
