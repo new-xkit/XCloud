@@ -53,7 +53,7 @@ require('./v1/routes-v1.js')(app, services, auth);
 
 //Catchall for reverse engineering.
 app.get("*", function(req, res){
-    res.sendFile(path.join(__dirname + "/public/index.html"));
+    res.sendStatus(404);
 });
 
 var options = {};
