@@ -92,4 +92,21 @@ module.exports = function(app, services, auth){
             }
         });
     });
+
+    app.post('/xcloud/upload', function(req, res){
+        var authorization = auth(req) === undefined ? {name: null, pass: null} : auth(req);
+
+        var username = authorization.name;
+        var password = authorization.pass;
+
+        var data = req.body.data === undefined || req.body.data === undefined ? null : req.body.data;
+
+        services.storePreferences(username, password, data, function(err, success){
+            if(err !== null || success === false){
+                res.send(err);
+            } else {
+                res.send({"errors": "false"});
+            }
+        });
+    });
 };
