@@ -17,23 +17,27 @@ var services = require('./v1/services.js')(repo);
 
 
 exports.fetch = function(event, context) {
-	var authorization = auth(event.headers) === undefined ? {name: null, pass: null} : auth(event.headers);
+
+    console.log(event);
+	var authorization = auth(event) === undefined ? {name: null, pass: null} : auth(event);
+
+    console.log("Authorization " + authorization);
 
     var username = authorization.name;
     var password = authorization.pass;
-    
+    console.log("Starting fetch preferences.");
     services.fetchPreferences(username, password, function(err, data){
         if(err !== null){
-            res.send(err);
+            context.succeed(err);
         } else {
-            res.send(data);
+            context.succeed(data);
         }
     });
 };
 
 
 exports.upload = function(event, context) {
-    var authorization = auth(event.headers) === undefined ? {name: null, pass: null} : auth(event.headers);
+    var authorization = auth(event) === undefined ? {name: null, pass: null} : auth(event);
 
     var username = authorization.name;
     var password = authorization.pass;
@@ -42,25 +46,25 @@ exports.upload = function(event, context) {
 
     services.storePreferences(username, password, data, function(err, success){
         if(err !== null || success === false){
-            res.send(err);
+            context.succeed(err);
         } else {
-            res.send({"errors": "false"});
+            context.succeed({"errors": "false"});
         }
     });
 };
 
 
 exports.auth = function(event, context) {
-    var authorization = auth(event.headers) === undefined ? {name: null, pass: null} : auth(event.headers);
+    var authorization = auth(event) === undefined ? {name: null, pass: null} : auth(event);
 
     var username = authorization.name;
     var password = authorization.pass;
 
     services.loginUser(username, password, function(err, success){
         if(err !== null || success === false){
-            res.send(err);
+            context.succeed(err);
         } else {
-            res.send({"errors": "false"});
+            context.succeed({"errors": "false"});
         }
     });
 };
@@ -73,9 +77,9 @@ exports.register = function(event, context) {
 
     services.registerUser(username, password, function(err, success){
         if(err !== null){
-            res.send(err);
+            context.succeed(err);
         } else {
-            res.send({"errors": "false"});
+            context.succeed({"errors": "false"});
         }
     });
 };
