@@ -6,7 +6,7 @@
 "use strict";
 
 var AWS = require('aws-sdk');
-var bcrypt = require('bcryptjs');
+var bcrypt = require('bcrypt');
 var uuid = require('node-uuid');
 var auth = require('basic-auth');
 
@@ -17,17 +17,16 @@ var services = require('./v1/services.js')(repo);
 
 
 exports.fetch = function(event, context) {
-
-    console.log(event);
-	var authorization = auth(event) === undefined ? {name: null, pass: null} : auth(event);
-
-    console.log("Authorization " + authorization);
+    var authorization = auth(event);
+    if(! authorization){
+        authorization = {name:null, pass: null}
+    }
 
     var username = authorization.name;
     var password = authorization.pass;
-    console.log("Starting fetch preferences.");
+
     services.fetchPreferences(username, password, function(err, data){
-        if(err !== null){
+        if(err){
             context.succeed(err);
         } else {
             context.succeed(data);
@@ -37,7 +36,10 @@ exports.fetch = function(event, context) {
 
 
 exports.upload = function(event, context) {
-    var authorization = auth(event) === undefined ? {name: null, pass: null} : auth(event);
+    var authorization = auth(event);
+    if(! authorization){
+        authorization = {name:null, pass: null}
+    }
 
     var username = authorization.name;
     var password = authorization.pass;
@@ -45,7 +47,7 @@ exports.upload = function(event, context) {
     var data = event.data === undefined || event.data === undefined ? null : event.data;
 
     services.storePreferences(username, password, data, function(err, success){
-        if(err !== null || success === false){
+        if(err || success === false){
             context.succeed(err);
         } else {
             context.succeed({"errors": "false"});
@@ -55,13 +57,16 @@ exports.upload = function(event, context) {
 
 
 exports.auth = function(event, context) {
-    var authorization = auth(event) === undefined ? {name: null, pass: null} : auth(event);
+    var authorization = auth(event);
+    if(! authorization){
+        authorization = {name:null, pass: null}
+    }
 
     var username = authorization.name;
     var password = authorization.pass;
 
     services.loginUser(username, password, function(err, success){
-        if(err !== null || success === false){
+        if(err || success === false){
             context.succeed(err);
         } else {
             context.succeed({"errors": "false"});
@@ -76,7 +81,7 @@ exports.register = function(event, context) {
 
 
     services.registerUser(username, password, function(err, success){
-        if(err !== null){
+        if(err){
             context.succeed(err);
         } else {
             context.succeed({"errors": "false"});
