@@ -73,7 +73,8 @@ Services.prototype = {
         }
 
         this.repo.getUser(username, password, function(err, user){
-           if(err !== null || user === null){
+            console.log(err);
+            if(err !== null || user === null){
                 callback({"errors": "true", "error_code": "602"}, false);
                 return;
             }
@@ -98,7 +99,9 @@ Services.prototype = {
         username = username.toLowerCase();
 
         this.repo.getUser(username, password, function(err, user){
-           if(err !== null || user === null){
+
+            if(err !== null || user === null){
+                console.log(err);
                 callback({"errors": "true", "error_code": "602"}, null);
                 return;
             }
