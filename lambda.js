@@ -43,8 +43,7 @@ exports.upload = function(event, context) {
 
     var username = authorization.name;
     var password = authorization.pass;
-
-    var data = event.data === undefined || event.data === undefined ? null : event.data;
+    var data = event.data === undefined ? null : event.data;
 
     services.storePreferences(username, password, data, function(err, success){
         if(err || success === false){
