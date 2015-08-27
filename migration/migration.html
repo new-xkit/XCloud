@@ -1,0 +1,59 @@
+<div class="container" ng-controller="LoginController">
+    <div class="page-header">
+        <h1>XCloud to XCloud Migration</h1>
+        <div class="alert alert-warning">
+
+            <span>So this could potentially explode your XCloud data...  I would recommend taking a quick peek at the migration guide before you start. Good Luck!</span>
+        </div>
+    </div>
+
+    <div class="load-contianer">
+        <div>
+            <label>Should old XCloud replace new XCloud or try to merge with XCloud?</label>
+            <br>
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked> Replace
+                </label>
+                <label class="btn btn-primary">
+                    <input type="radio" name="options" id="option2" autocomplete="off"> Merge
+                </label>
+            </div>
+        </div>
+
+
+        <div>
+            <label>Old XCloud Credentials</label>
+            <form class="form-inline">
+                <div class="form-group">
+                    <label class="sr-only" for="inputUser">Username</label>
+                    <input type="text" class="form-control" id="inputUser" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                </div>
+            </form>
+        </div>
+
+
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
+                <span class="sr-only">45% Complete</span>
+            </div>
+        </div>
+
+
+        <table class="list-group table table-hover" style="background-color: white;">
+            <thead>
+            <tr>
+                <th>Old XCloud Extension</th>
+                <th>New XCloud Extension</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="extension-table-body">
+            </tbody>
+        </table>
+    </div>
+</div>

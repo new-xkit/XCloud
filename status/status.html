@@ -1,0 +1,28 @@
+<div class="container" ng-controller="StatusController">
+    <div class="page-header">
+        <h1>XCloud Status</h1>
+        <img src="/assets/ajax-loader.gif" ng-show="loading" />
+        <span class="bg-warning" ng-show="error_message">{{error_message}}</span>
+    </div>
+
+    <div class="load-contianer">
+        <ul class="list-group">
+            <li class="list-group-item">{{extension_count}} Extensions</li>
+            <li class="list-group-item">{{extension_size}} KB</li>
+            <li class="list-group-item"><button ng-disabled="! user_preferences" class="btn btn-primary" type="button" ng-click="downloadPreferences()">Download Preferences</button> </li>
+        </ul>
+
+        <table class="list-group table table-hover" style="background-color: white;">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Extension</th>
+                    <th>Size</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="extension-table-body">
+            </tbody>
+        </table>
+    </div>
+</div>

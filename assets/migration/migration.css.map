@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,cAAe;EACb,eAAe,EAAE,OAAO;EACxB,KAAK,EAAE,OAAO;EACd,MAAM,EAAE,IAAI;;AAGd,iBAAkB;EAChB,eAAe,EAAE,OAAO;EACxB,KAAK,EAAE,OAAO;EACd,MAAM,EAAE,IAAI",
+"sources": ["migration.scss"],
+"names": [],
+"file": "migration.css"
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>XCloud Migration</title>
+    <link rel="stylesheet" href="migration.css">
+    <link rel="stylesheet" href="/bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="/bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+</head>
+<body>
+<div class="container">
+    <h1><span class="glyphicon glyphicon-cloud" aria-hidden="true"></span> XCloud Migration Guide</h1>
+    <h2>Contents</h2>
+    <ol>
+        <li>Introduction</li>
+        <li>Setting up XCloud on old XKit</li>
+        <li>Using new XCloud</li>
+        <li>Verifying XCloud</li>
+        <li>Installing New-XKit</li>
+    </ol>
+
+
+    <h2>Introduction</h2>
+    <p>This guide will walk you through upgrading from the old XKit to New-XKit if you're unable to access the old XCloud servers.</p>
+    <p>This is for users who:</p>
+    <ol>
+        <li>Are on old XKit</li>
+        <li>Cannot login to the old XKit servers.</li>
+        <li><a href="http://new-xkit-extension.tumblr.com/post/126630096169/how-the-fuck-do-i-use-xcloud-a-troubleshooting"> XCloud trouble shooting guide did not work.</a></li>
+    </ol>
+    <p>This guide is a shade long and can take some time.  So grab a cup of tea and let's get started.</p>
+
+    <hr>
+
+    <h2>Setting up XCloud on old XKit</h2>
+    <p>Fortunately we can setup the access to the new XCloud servers on old XKit.</p>
+
+    <hr>
+    <h3>Setup old XCloud</h3>
+    <p>We first need to have the old XCloud in our extension list.  If you already have it, just <a href="#setup-editor">skip to the next step</a>.<br>
+        Just download the extension like you would any other.</p>
+    <img src="setup-extension-1.png">
+    <br>
+    <p>After downloading XCloud should be installed in the XCloud tab.</p>
+    <img src="setup-extension-2.png">
+
+    <a href="#setup-editor" class="nostyle" name="setup-editor"><h3>Open the XKit editor</h3></a>
+    <p>XKit has a built in extension editor.  We will be using this to modify the XCloud extension to point to the new XCloud servers.<br>
+        You can find the XKit editor in the "Other" tab near the bottom of the list on the left. </p>
+    <img src="editor-location.png">
+    <br>
+    <p>In the editor screen, open the XCloud extension.  (Open Extension -> XCloud)</p>
+    <br>
+    <img src="editor-open.png">
+
+    <p>You should now see the old XCloud extension's source code.</p>
+    <img src="editor-old-xcloud.png">
+
+    <hr>
+    <h3>Copy in the new XCloud</h3>
+    <p>Replace the entire script with the new <a target="_blank" href="https://raw.githubusercontent.com/ChuckL/XKit/xcloud-fix/Extensions/xcloud.js">XCloud code here</a>. <br> Just select all of the script -> delete -> select all of the new XCloud code -> paste in the editor.</p>
+    <img src="editor-no-xcloud.png"><br><img src="editor-select-all.png"><br><img src="editor-new-xcloud.png">
+
+
+    <p>Then click save in the editor and go back to Tumblr.  XCloud should work.</p>
+    <hr>
+
+    <h2>Using XCloud</h2>
+    <p>To use XCloud you will need to register an account.  After registration, hit the sync button to upload all of your extension data.</p>
+    <img src="xcloud-working.png">
+    <hr>
+
+    <h2>Verifying XCloud</h2>
+    <p>We have an XCloud portal setup so you can verify that it worked.<br>You can visit the portal at <a href="https://portal.new-xkit.com">https://portal.new-xkit.com</a><br>
+    After logging in with the same username and password you registered with, click on status to see the extensions that were uploaded.
+        It will also verify that your extensions were not corrupted in the upload.  Form here you can download your extension data for a backup.
+    <br><br>
+    If verification was not successful on an extension, try syncing again.  If it happens again, drop an ask on our support blog.</p>
+
+    <hr>
+    <h2>Installing New-XKit</h2>
+    <p>Make sure you uninstall the old XKit before installing New-XKit</p>
+    <p>You can find links to the up to date Firefox and Chrome builds of <a href="http://new-xkit-extension.tumblr.com/"> New-XKit on our tumblr blog</a>.</p>
+
+</div>
+</body>
+</html>
