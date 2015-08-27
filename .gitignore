@@ -5,6 +5,8 @@ bower_components
 .bower-registry
 .bower-tmp
 
+components
+
 node_modules
 
 ### Intellij ###
