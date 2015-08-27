@@ -1,11 +1,9 @@
 
 ### Bower ###
-bower_components
 .bower-cache
 .bower-registry
 .bower-tmp
 
-components
 
 node_modules
 
