@@ -61,7 +61,7 @@ angular.module('xcloud.login', ['ngRoute'])
             $.ajax({
                 type: "POST",
                 url: config.xcloud_url + "/xcloud/register",
-                data: {"username":$scope.user.username,"password":md5($scope.user.password)},
+                data: JSON.stringify({"username":$scope.user.username,"password":md5($scope.user.password)}),
                 success: function(data){
                     console.log(data);
                     if(data.errors == "false"){
