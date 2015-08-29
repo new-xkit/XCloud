@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ChuckL/XCloud-Portal/issues"
   },
-  "homepage": "https://github.com/ChuckL/XCloud-Portal"
+  "homepage": "https://github.com/ChuckL/XCloud-Portal",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
 }
