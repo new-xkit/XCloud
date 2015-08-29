@@ -44,13 +44,14 @@ angular.module('xcloud.status', ['ngRoute'])
                 var extension_data = base64_decode(xcloud_data);
                 var table_body = $('#extension-table-body');
 
-
                 extension_data = JSON.parse(extension_data);
                 $scope.extension_count = extension_data.settings.length;
                 $scope.extension_size = Math.round(xcloud_data.length / 1024);
 
                 $scope.$apply();
 
+
+                table_body.html('');
                 $.each(extension_data.settings, function(index, value){
                     console.log(value);
 
