@@ -55,7 +55,13 @@ angular.module('xcloud.status', ['ngRoute'])
                 $.each(extension_data.settings, function(index, value){
                     console.log(value);
 
-                    var extension_inner_data = base64_decode(value.preferences);
+                    var extension_inner_data;
+                    if(extension_data.use_utf8){
+                        extension_inner_data = decodeURI(base64_decode(value.preferences));
+                    }
+                    else {
+                        extension_inner_data = base64_decode(value.preferences);
+                    }
                     var valid_json = false;
 
                     console.log(extension_inner_data);
